@@ -1,0 +1,21 @@
+= Helmet.js
+
+Contextually escaped templates for Single page web apps
+
+== Usage
+
+Include helmet.js
+
+Compile the template and then render with data
+
+  var template = "<div>Hei <%= data %></div>";
+  var compiled = helmet.compile(template);
+  var out = compiled.render({ "data" : "this data will be escaped <h1>" });
+
+
+== Tests
+
+Install buster.js
+Run buster server (npm install buster)
+Capture a browser
+Run buster test
