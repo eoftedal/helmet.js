@@ -15,7 +15,7 @@ Compile the template and then render with data
 
 == Tests
 
-# Install buster.js
-# Run buster server (npm install buster)
-# Capture a browser
-# Run buster test
+1. Install buster.js
+2. Run buster server (npm install buster)
+3. Capture a browser
+4. Run buster test
