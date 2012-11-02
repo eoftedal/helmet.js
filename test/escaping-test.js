@@ -43,4 +43,23 @@ describe("Helmet", function() {
 		var out = render({ "data" : "<h1>" });
 		expect(out).toEqual("<div><div title='&#x3c;h1&#x3e;'>hello</div></div>");
 	});
+
+	it("should passthrough for <%- %>", function() {
+		var template = "<div><%- data %></div>";
+		var render = helmet.compile(template).render;
+		var out = render({ "data" : "<h1>" });
+		expect(out).toEqual("<div><h1></div>");
+	});
+
+	it("should run js in <% %>", function() {
+		var template = 	"<ul>\n"+
+						"<% for (var i in data) { %>\n" + 
+							"<li><%= i %></li>\n" + 
+						"<% } %>\n" +
+						"</ul>";
+		var render = helmet.compile(template).render;
+		var out = render({ "data" : [0,1,2] });
+		expect(out).toEqual("<ul>\n\n<li>0</li>\n\n<li>1</li>\n\n<li>2</li>\n\n</ul>");
+	});
+
 });
