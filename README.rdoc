@@ -6,11 +6,24 @@ Contextually escaped templates for Single page web apps
 
 Include helmet.js
 
-Compile the template and then render with data
+Compile the template and then render with data - escaping:
 
   var template = "<div>Hei <%= data %></div>";
   var compiled = helmet.compile(template);
   var out = compiled.render({ "data" : "this data will be escaped <h1>" });
+
+Raw:
+
+  var template = "<div>Hei <%- data %></div>";
+  var compiled = helmet.compile(template);
+  var out = compiled.render({ "data" : "this data will not be escaped <h1>" });
+
+Evaled javascript:
+
+  var template = "<div>Hei <% if(data) { %>javascript found data was true <% } %></div>";
+  var compiled = helmet.compile(template);
+  var out = compiled.render({ "data" : true });
+
 
 
 == Tests
