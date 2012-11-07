@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<script src="../lib/helmet.js"></script>
+<style>
+textarea,button, div#escaped { 
+	display: block; 
+	margin-bottom: 2em;
+}
+textarea {
+	width: 500px;
+	height: 200px;
+}
+</style>
+<body>
+
+Template:
+<textarea id="template">
+<h1><%= title %></h1>
+</textarea>
+
+Data:
+<textarea id="data">
+{
+  "title":"Hello"
+}
+</textarea>
+
+<button onclick="run()">Render</button>
+Rendered HTML:
+<div id="escaped">
+
+</div>
+
+Display:
+<div id="display">
+
+</div>
+<script>
+function run() {
+	var compiled = helmet.compile(document.getElementById("template").value);	
+	var data = JSON.parse(document.getElementById("data").value);
+	document.getElementById("escaped").textContent = document.getElementById("escaped").innerText = compiled.render(data);
+	document.getElementById("display").innerHTML = compiled.render(data);
+	return false;
+}
+</script>
+
+
+</body>
+</html>
