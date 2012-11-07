@@ -58,11 +58,24 @@ describe("Helmet", function() {
 		expect(out).toEqual("<div><a onclick=\"var a = 'a\\x27x'\">hello</a></div>");
 	});
 
+	it("should javascript escape if inside string with double quotes", function() {
+		var template = "<div><a onclick='var a = \"<%= data %>\"'>hello</a></div>";
+		var compiled = helmet.compile(template);
+		var out = compiled.render({ "data" : "a'x" });
+		expect(out).toEqual("<div><a onclick='var a = \"a\\x27x\"'>hello</a></div>");
+	});
+
 	it("should refuse javascript if outside string", function() {
 		var template = "<div><a onclick=\"var a = <%= data %>\">hello</a></div>";
 		var compiled = helmet.compile(template);
 		var out = compiled.render({ "data" : "a'x" });
 		expect(out).toEqual("<div><a onclick=\"var a = /* unsafe-location */\">hello</a></div>");
+	});
+	it("should refuse javascript if outside string with string before", function() {
+		var template = "<div><a onclick=\"var a = '' + <%= data %>\">hello</a></div>";
+		var compiled = helmet.compile(template);
+		var out = compiled.render({ "data" : "a'x" });
+		expect(out).toEqual("<div><a onclick=\"var a = '' + /* unsafe-location */\">hello</a></div>");
 	});
 
 
