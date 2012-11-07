@@ -91,6 +91,12 @@ describe("Helmet", function() {
 		var out = compiled.render({ "data" : "a'x" });
 		expect(out).toEqual("<div><script>var a = /* unsafe-location */</script></div>");
 	});
+	it("should refuse javascript if inside script-tag", function() {
+		var template = "<div><script>var a = '\\\''<%= data %></script></div>";
+		var compiled = helmet.compile(template);
+		var out = compiled.render({ "data" : "a'x" });
+		expect(out).toEqual("<div><script>var a = '\\\''/* unsafe-location */</script></div>");
+	});
 
 
 	it("should passthrough for <%- %>", function() {
