@@ -2,17 +2,33 @@
 <html>
 <script src="../lib/helmet.js"></script>
 <style>
-textarea,button, div#escaped { 
+body {
+	-webkit-font-smoothing: antialiased;
+	font-family: 'Open Sans', Arial, sans-serif;
+}
+textarea,button, div#escaped, div#display { 
 	display: block; 
 	margin-bottom: 2em;
+	padding: 5px;
 }
-textarea {
-	width: 500px;
+textarea, div#escaped, div#display {
+	width: 400px;
 	height: 200px;
+	border: 1px solid #444;
 }
+
+div#left, div#right, button {
+	float: left;
+}
+button  {
+	margin: 40px;
+}
+
 </style>
 <body>
+<h1>Helmet.js test bench</h1>
 
+<div id="left">
 Template:
 <textarea id="template">
 <h1><%= title %></h1>
@@ -24,12 +40,15 @@ Data:
   "title":"Hello"
 }
 </textarea>
-
-<button onclick="run()">Render</button>
-Rendered HTML:
-<div id="escaped">
-
 </div>
+
+<button onclick="run()">Render &rarr;</button>
+
+<div id="right">
+Rendered HTML:
+<textarea id="escaped">
+
+</textarea>
 
 Display:
 <div id="display">
@@ -44,7 +63,7 @@ function run() {
 	return false;
 }
 </script>
-
+</div>
 
 </body>
 </html>
