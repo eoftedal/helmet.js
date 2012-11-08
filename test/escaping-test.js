@@ -7,6 +7,14 @@ describe("Helmet", function() {
 		var out = compiled.render({ "data" : "<h1>" });
 		expect(out).toEqual("<div>&lt;h1&gt;</div>");
 	});
+
+	it("should reject content as tagname tags", function() {
+		var template = "<<%= data %>>";
+		var compiled = helmet.compile(template);
+		var out = compiled.render({ "data" : "img src=x onerror=alert(1)" });
+		expect(out).toEqual("<unsafe-location>");
+	});
+
 	it("should escape content between tags", function() {
 		var template = "<div><%= data %>x<%= data %></div>";
 		var compiled = helmet.compile(template);
