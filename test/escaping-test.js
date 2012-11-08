@@ -58,6 +58,22 @@ describe("Helmet", function() {
 		var out = compiled.render({ "data" : "a&b" });
 		expect(out).toEqual("<div><a href='http://www.google.com/?q=a%26b'>hello</a></div>");
 	});
+	it("should use url encoding when inside url of formaction", function() {
+		var template = '<form id=x><button form=x formaction="<%= data %>">';
+		var compiled = helmet.compile(template);
+		var out = compiled.render({ "data" : "a&b" });
+		expect(out).toEqual('<form id=x><button form=x formaction="a%26b">');
+	});
+	it("should use url encoding when inside url", function() {
+		var template = '<form action="<%= data %>">';
+		var compiled = helmet.compile(template);
+		var out = compiled.render({ "data" : "a&b" });
+		expect(out).toEqual('<form action="a%26b">');
+	});
+
+
+
+
 
 	it("should javascript escape if inside string", function() {
 		var template = "<div><a onclick=\"var a = '<%= data %>'\">hello</a></div>";
