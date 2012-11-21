@@ -122,6 +122,13 @@ describe("Helmet", function() {
 		expect(out).toEqual("<div><script>var a = '\\\''/* unsafe-location */</script></div>");
 	});
 
+	it("should refuse escaped output as tagname", function() {
+		var template = "<<%= data %>>";
+		var compiled = helmet.compile(template);
+		var out = compiled.render({ "data" : "a" });
+		expect(out).toEqual("<unsafe-location>");
+	});
+
 
 	it("should passthrough for <%- %>", function() {
 		var template = "<div><%- data %></div>";
