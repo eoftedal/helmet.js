@@ -128,6 +128,12 @@ describe("Helmet", function() {
 		var out = compiled.render({ "data" : "a" });
 		expect(out).toEqual("<unsafe-location>");
 	});
+	it("should refuse escaped output in iframe", function() {
+		var template = "<iframe><<%= data %>>";
+		var compiled = helmet.compile(template);
+		var out = compiled.render({ "data" : "a" });
+		expect(out).toEqual("<iframe><unsafe-location>");
+	});
 
 
 	it("should passthrough for <%- %>", function() {
