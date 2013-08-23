@@ -154,4 +154,12 @@ describe("Helmet", function() {
 		expect(out).toEqual("<ul>\n\n<li>0</li>\n\n<li>1</li>\n\n<li>2</li>\n\n</ul>");
 	});
 
+	it("should passthrough unicode correctly", function() {
+		var template = '<div a="<%= data %>"></div>';
+		var compiled = helmet.compile(template);
+		var out = compiled.render({ "data" : "☃" });
+		expect(out).toEqual('<div a="&#x2603;"></div>');
+	});
+
+
 });

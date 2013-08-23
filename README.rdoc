@@ -28,7 +28,7 @@ Evaled javascript:
 
 == Tests
 
-1. Install buster.js
-2. Run buster server (npm install buster)
+1. Install buster.js (npm install buster)
+2. Run buster server
 3. Capture a browser
 4. Run buster test
