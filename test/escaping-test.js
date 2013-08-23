@@ -161,5 +161,13 @@ describe("Helmet", function() {
 		expect(out).toEqual('<div a="&#x2603;"></div>');
 	});
 
+	it("should passthrough unicode correctly for astral symbols", function() {
+		var template = '<div a="<%= data %>"></div>';
+		var compiled = helmet.compile(template);
+		var out = compiled.render({ "data" : '\uD834\uDF06' });
+		expect(out).toEqual('<div a="&#x1d306;"></div>');
+	});
+
+
 
 });
